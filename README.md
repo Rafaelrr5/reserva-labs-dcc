@@ -49,10 +49,11 @@ Comece pela visão geral; os outros aprofundam cada frente.
 | Arquivo | Conteúdo |
 |---|---|
 | [`docs/visao-geral.md`](docs/visao-geral.md) | **Comece aqui.** O que cada parte faz e por que existe |
+| [`apresentacao/conceitos.html`](apresentacao/conceitos.html) | Slides de abertura: os conceitos, em 12 telas |
 | [`docs/ihc.md`](docs/ihc.md) | Interação: tarefa, affordance, rótulo, retorno, consistência |
 | [`docs/qualidade.md`](docs/qualidade.md) | Instrumentos: o que cada um mede, por que discordam, onde falham |
 | [`docs/manutencao.md`](docs/manutencao.md) | Cada defeito da v1 e a técnica de refatoração aplicada |
-| [`docs/apresentacao.md`](docs/apresentacao.md) | Roteiro cronometrado de 17 min com perguntas prováveis |
+| [`docs/apresentacao.md`](docs/apresentacao.md) | Roteiro cronometrado de 18 min com perguntas prováveis |
 | [`docs/smells-planejados.md`](docs/smells-planejados.md) | Catálogo dos defeitos plantados |
 
 ## Aviso metodológico

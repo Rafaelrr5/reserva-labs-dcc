@@ -2,7 +2,7 @@
 
 **Temas: Interação Homem-Computador e Qualidade de Software.**
 
-Alvo: 17 minutos, com folga para os 15–20 exigidos. Os tempos são de ensaio,
+Alvo: 18 minutos, dentro dos 15–20 exigidos. Os tempos são de ensaio,
 não de improviso.
 
 O fio condutor: *a versão ruim não parece ruim, e as ferramentas que deveriam
@@ -23,9 +23,13 @@ Deixe `relatorios/auditoria.json` e uma captura da saída salvos. Se o navegador
 ou a máquina falharem na hora, você apresenta o relatório salvo em vez de
 cancelar a demonstração.
 
+Abra também `apresentacao/conceitos.html`, que cobre os blocos 1 e 2 abaixo.
+
 ---
 
-## 1. Problema e enquadramento — 2 min
+## 1. Problema e enquadramento — 1,5 min
+
+*Slides 1 a 3 de `apresentacao/conceitos.html`.*
 
 Reserva de laboratórios do DCC. Duas implementações da mesma funcionalidade:
 uma com dívida técnica, outra refatorada.
@@ -38,7 +42,16 @@ Enuncie a articulação entre os dois temas: os mesmos defeitos degradam a
 experiência de uso (IHC) e testam a capacidade dos instrumentos de detectá-los
 (Qualidade). Um tema fornece o problema, o outro fornece a régua.
 
-## 2. A v1 funcionando — 1,5 min
+## 1b. Conceitos — 2,5 min
+
+*Slides 4 a 11.* Affordance e significante, os dois golfos de Norman, a tarefa
+como unidade de medida, conformidade, níveis de verificação, falso negativo por
+ausência e o alcance da automação.
+
+Passe rápido: cada conceito reaparece na demonstração, e é lá que ele fixa.
+O objetivo aqui é só dar nome às coisas antes de mostrá-las.
+
+## 2. A v1 funcionando — 1 min
 
 Abra `#/v1` e faça uma reserva com o mouse. Funciona. Parece pronta.
 
@@ -72,7 +85,7 @@ A pessoa aciona e não recebe resposta — golfo de avaliação aberto.
 
 Abra `#/v2` e repita a tarefa pelo teclado. Conclui.
 
-## 4. Qualidade — a auditoria ao vivo — 4 min
+## 4. Qualidade — a auditoria ao vivo — 3,5 min
 
 *Esta é a parte de Qualidade de Software.*
 
