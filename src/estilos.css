@@ -1,0 +1,120 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+}
+
+body {
+  margin: 0;
+  padding: 1.5rem;
+  max-width: 60rem;
+}
+
+.troca-versao {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #d0d0d0;
+  padding-bottom: 0.75rem;
+}
+
+.troca-versao a {
+  color: #1a4f8a;
+}
+
+.troca-versao a[aria-current='page'] {
+  font-weight: 700;
+}
+
+fieldset {
+  border: 1px solid #c8c8c8;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input,
+select {
+  font: inherit;
+  padding: 0.4rem;
+  margin-bottom: 0.9rem;
+  border: 1px solid #767676;
+  min-width: 14rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0.75rem;
+}
+
+/* --- v1: aparencia intencionalmente problematica --- */
+
+/* Contraste ~2.2:1 sobre branco, abaixo do minimo de 4.5:1 */
+.v1-auxiliar,
+.v1-erro {
+  color: #b0b0b0;
+  font-size: 0.85rem;
+}
+
+.v1-rotulo {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.v1-titulo-falso {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 1.2rem 0 0.6rem;
+}
+
+/* Botao que nao e botao: sem foco, sem papel, sem teclado */
+.v1-botao {
+  display: inline-block;
+  background: #1a4f8a;
+  color: #fff;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.v1-ocupado {
+  color: #c0392b;
+}
+
+/* --- v2: correcoes --- */
+
+.v2-auxiliar {
+  color: #595959; /* 7:1 sobre branco */
+  font-size: 0.85rem;
+}
+
+.v2-erro {
+  color: #a62617; /* 6.2:1 sobre branco */
+  font-weight: 600;
+}
+
+button {
+  font: inherit;
+  background: #1a4f8a;
+  color: #fff;
+  border: 0;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid #b35c00;
+  outline-offset: 2px;
+}
