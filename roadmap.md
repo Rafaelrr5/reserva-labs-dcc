@@ -15,13 +15,15 @@ A partir daqui as duas trilhas correm em paralelo e não se cruzam.
 
 ## Trilha B — Qualidade e Verificação
 
-### Etapa B1 — Domínio puro + testes de unidade
-- [ ] `src/dominio/horario.js` — conversão e intervalo de uma reserva
-- [ ] `src/dominio/conflito.js` — regra única de sobreposição
-- [ ] `src/dominio/conflito.test.js` — casos de borda (encostar sem sobrepor,
-      conter, cruzar parcialmente, laboratório diferente, dia diferente)
+### Etapa B1 — Domínio puro + testes de unidade ✅
+- [x] `src/dominio/horario.js` — conversão e intervalo de uma reserva
+- [x] `src/dominio/conflito.js` — regra única de sobreposição
+- [x] `src/dominio/conflito.test.js` — 16 testes cobrindo encostar sem
+      sobrepor, conter, cruzar, recurso e dia distintos, edição da própria
+      reserva e entradas inválidas
 
-Não depende de interface. Pode começar imediatamente.
+Verificado por mutação: trocar `<` por `<=` na regra faz o teste de intervalo
+semiaberto falhar. Os testes não passam por ausência.
 
 ### Etapa B2 — Auditoria automatizada
 - [ ] `auditoria/auditar.mjs` — axe-core nas duas rotas via Playwright
