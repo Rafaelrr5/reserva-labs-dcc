@@ -9,14 +9,19 @@
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "auditoria": "node auditoria/auditar.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "axe-core": "^4.13.0",
+    "lighthouse": "^13.5.0",
+    "playwright": "^1.63.0",
     "vite": "^7.1.14",
     "vitest": "^3.2.4"
   }
