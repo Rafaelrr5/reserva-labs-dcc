@@ -1,10 +1,11 @@
 # Reserva de Laboratórios — DCC
 
-Trabalho de Engenharia de Software: **Qualidade** e **Manutenção**.
+Trabalho de Engenharia de Software: **Interação Homem-Computador** e
+**Qualidade de Software**.
 
 Um mesmo sistema de reserva de laboratórios implementado em **duas versões**,
-para tornar mensurável o efeito de decisões de projeto sobre a qualidade e a
-manutenibilidade do código.
+para tornar mensurável o efeito de decisões de projeto sobre a experiência de
+quem usa e sobre a qualidade do código.
 
 | Rota | O que é |
 |---|---|
@@ -20,13 +21,13 @@ seja feita sobre o mesmo dado e o mesmo navegador.
 |---|---|---|
 | Nota Lighthouse (acessibilidade) | 78/100 | 100/100 |
 | Violações axe-core | 3 regras, 8 elementos | 0 |
-| Acionador alcançável por teclado | não | sim |
-| Testes de unidade do domínio | — | 16 passando |
+| **Tarefa concluída só com teclado** | **impossível** (22 paradas de foco) | concluída (6 paradas) |
+| Testes de unidade | — | 19 passando |
 
-O achado mais interessante: **o defeito mais grave da v1 — o botão inoperável
-por teclado — não foi detectado por nenhuma das duas ferramentas.** Não existe
-regra violada quando o elemento que seria verificado nem existe. Explicado em
-[`docs/qualidade.md`](docs/qualidade.md).
+O achado central: **o defeito mais grave da v1 — a reserva impossível de
+concluir pelo teclado — não foi detectado por nenhuma das duas ferramentas.**
+Não existe regra violada quando o elemento que seria verificado nem existe.
+Explicado em [`docs/qualidade.md`](docs/qualidade.md).
 
 ## Como rodar
 
@@ -43,19 +44,26 @@ A auditoria precisa do `preview` rodando em outra aba.
 
 ## Documentação
 
+Comece pela visão geral; os outros aprofundam cada frente.
+
 | Arquivo | Conteúdo |
 |---|---|
-| [`docs/qualidade.md`](docs/qualidade.md) | Níveis de teste, o que cada instrumento alcança e o que não alcança |
-| [`docs/manutencao.md`](docs/manutencao.md) | Cada defeito da v1 e a técnica aplicada na v2 |
-| [`docs/apresentacao.md`](docs/apresentacao.md) | Roteiro cronometrado de 17 min |
+| [`docs/visao-geral.md`](docs/visao-geral.md) | **Comece aqui.** O que cada parte faz e por que existe |
+| [`docs/ihc.md`](docs/ihc.md) | Interação: tarefa, affordance, rótulo, retorno, consistência |
+| [`docs/qualidade.md`](docs/qualidade.md) | Instrumentos: o que cada um mede, por que discordam, onde falham |
+| [`docs/manutencao.md`](docs/manutencao.md) | Cada defeito da v1 e a técnica de refatoração aplicada |
+| [`docs/apresentacao.md`](docs/apresentacao.md) | Roteiro cronometrado de 17 min com perguntas prováveis |
 | [`docs/smells-planejados.md`](docs/smells-planejados.md) | Catálogo dos defeitos plantados |
 
 ## Aviso metodológico
 
 Os defeitos da `v1` são **plantados de propósito**. Este repositório é uma
-demonstração didática de técnicas de avaliação de qualidade, não um estudo
-empírico: os números medidos descrevem estas duas implementações específicas e
-não se generalizam. O que se generaliza é o método.
+demonstração didática de técnicas de avaliação, não um estudo empírico: os
+números descrevem estas duas implementações específicas e não se generalizam.
+O que se generaliza é o método.
+
+Não houve teste com usuários reais. A auditoria mede eficácia e um proxy de
+esforço; satisfação e carga cognitiva ficam fora do que podemos afirmar.
 
 ## Escopo funcional
 

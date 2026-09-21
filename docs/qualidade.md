@@ -10,10 +10,14 @@ produção, no mesmo navegador, na mesma execução. Os dados brutos ficam em
 |---|---|---|
 | Nota Lighthouse (acessibilidade) | 78/100 | 100/100 |
 | Violações axe-core | 3 regras, 8 elementos | 0 |
-| Acionador alcançável por teclado | não | sim |
+| Tarefa concluível só com teclado | não | sim |
 | Testes de unidade do domínio | — | 16 passando |
 
-## Os quatro níveis e o que cada um alcança
+O lado de **interação** desses números — o que eles significam para quem usa o
+sistema — está em [`ihc.md`](ihc.md). Aqui tratamos dos instrumentos: o que
+cada um mede, por que discordam entre si, e onde falham.
+
+## Os cinco níveis e o que cada um alcança
 
 **Unidade** (`src/dominio/conflito.test.js`, 16 casos). Roda sem navegador, em
 milissegundos. Alcança a regra de negócio: sobreposição, intervalos que apenas
@@ -30,6 +34,10 @@ de layout e de cor computada, então exige navegador real.
 
 **Relatório de nota** (Lighthouse 13.5.0, viewport móvel emulado). Mesma
 família de verificações, agregadas em um número comparável ao longo do tempo.
+
+**Execução de tarefa por teclado** (`medirTarefaPorTeclado`). Não verifica
+regras: executa a tarefa real e confere se ela se conclui. É o único nível que
+detecta a barreira mais grave da v1, e o motivo está no terceiro limite.
 
 ## Primeiro limite: Lighthouse usa axe-core e mesmo assim diverge
 
@@ -86,18 +94,23 @@ que também não é o caso. Para o motor, aquilo é conteúdo estático comum.
 
 Isto é um **falso negativo por ausência**: a verificação passou porque o
 elemento que seria verificado não existe. Foi por isso que a auditoria ganhou
-uma terceira medição — tentar chegar ao acionador com Tab e registrar o
-resultado:
+uma medição que não olha para regras, e sim para a tarefa:
 
 ```
-v1: recebe foco=false   alcancavel por Tab=false
-v2: recebe foco=true    alcancavel por Tab=true
+v1: recebe foco=false   Tab=false   tarefa: IMPOSSIVEL   (22 paradas de foco)
+v2: recebe foco=true    Tab=true    tarefa: CONCLUIDA    (6 paradas de foco)
 ```
 
-Vinte linhas de verificação capturaram o que dois motores maduros não capturam.
-A lição não é que as ferramentas são ruins — elas acertaram tudo que se
-propõem a verificar. É que a cobertura de uma ferramenta é definida pelas
-perguntas que ela faz, e nenhuma delas pergunta "isto funciona sem mouse?".
+Cerca de cinquenta linhas de verificação capturaram o que dois motores maduros
+não capturam. A lição não é que as ferramentas são ruins — elas acertaram tudo
+que se propõem a verificar. É que a cobertura de uma ferramenta é definida pelas
+perguntas que ela faz, e nenhuma delas pergunta "a pessoa consegue concluir a
+tarefa sem mouse?".
+
+Daí a diferença de natureza entre os instrumentos: axe e Lighthouse verificam
+**conformidade** (que regra foi violada); a execução de tarefa verifica
+**eficácia** (o objetivo foi alcançado). A segunda pergunta é de IHC, e está
+desenvolvida em [`ihc.md`](ihc.md).
 
 ## Quarto ponto: há defeito que acessibilidade nunca veria
 
@@ -113,9 +126,10 @@ extraída para um módulo isolado na v2.
 
 ## Porta de qualidade
 
-O comando `npm run auditoria` termina com erro se a v2 não superar a v1 nos dois
-instrumentos. É a mesma função de um gate de integração contínua, executável em
-sala sem depender de rede.
+O comando `npm run auditoria` termina com erro se a v2 não superar a v1 nos três
+instrumentos — nota, violações e conclusão da tarefa por teclado. É a mesma
+função de um gate de integração contínua, executável em sala sem depender de
+rede.
 
 Uma ressalva honesta: uma porta que compara duas versões conhecidas prova
 pouco. O valor está em rodá-la a cada alteração, quando a comparação passa a
