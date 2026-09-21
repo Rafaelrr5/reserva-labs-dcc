@@ -1,88 +1,84 @@
 # Andamento do projeto
 
-Cada etapa é um commit (ou poucos). Marque ao concluir.
+Todas as etapas concluídas. Números verificados por execução real.
 
-## Etapa 0 — Contrato (conjunto) ✅
-
+## Etapa 0 — Contrato ✅
 - [x] Repositório e estrutura Vite + React
 - [x] Dados congelados: laboratórios, horários, reservas iniciais
-- [x] Marcadores de teste acordados entre as duas versões
-- [x] Divisão de responsabilidades escrita
+- [x] Marcadores de teste comuns às duas versões
 
-A partir daqui as duas trilhas correm em paralelo e não se cruzam.
-
----
-
-## Trilha B — Qualidade e Verificação
-
-### Etapa B1 — Domínio puro + testes de unidade ✅
+## Etapa 1 — Domínio + testes ✅
 - [x] `src/dominio/horario.js` — conversão e intervalo de uma reserva
 - [x] `src/dominio/conflito.js` — regra única de sobreposição
-- [x] `src/dominio/conflito.test.js` — 16 testes cobrindo encostar sem
-      sobrepor, conter, cruzar, recurso e dia distintos, edição da própria
-      reserva e entradas inválidas
+- [x] `src/dominio/conflito.test.js` — 16 testes
 
 Verificado por mutação: trocar `<` por `<=` na regra faz o teste de intervalo
 semiaberto falhar. Os testes não passam por ausência.
 
-### Etapa B2 — Auditoria automatizada
-- [ ] `auditoria/auditar.mjs` — axe-core nas duas rotas via Playwright
-- [ ] Lighthouse nas duas rotas, mesma sessão de navegador
-- [ ] Tabela comparativa impressa no terminal
-- [ ] Saída com código de erro se a v2 regredir
+## Etapa 2 — Versão 1 ✅
+- [x] `src/v1/ReservaV1.jsx` — monolítico, regra em 3 cópias, a terceira com `<=`
+- [x] `src/v1/divergencia.test.js` — prova que envio e contador discordam às 10:00
+- [x] `docs/smells-planejados.md`
 
-### Etapa B3 — Capítulo de Qualidade
-- [ ] `docs/qualidade.md` — níveis de teste e o que cada um alcança
-- [ ] Os três limites do instrumento (ver abaixo)
+## Etapa 3 — Versão 2 ✅
+- [x] Componentes extraídos: `Campo`, `TabelaReservas`, `formatacao`
+- [x] Consome `src/dominio/` em vez de reimplementar a regra
+- [x] HTML semântico, rótulos associados, contraste corrigido
 
----
+## Etapa 4 — Auditoria ✅
+- [x] `auditoria/auditar.mjs` — axe-core, Lighthouse e teclado nas duas rotas
+- [x] Tabela comparativa e reconciliação entre os instrumentos
+- [x] Porta de qualidade: sai com erro se a v2 não superar a v1
 
-## Trilha A — Produto e Manutenção
+## Etapa 5 — Documento ✅
+- [x] `docs/qualidade.md`
+- [x] `docs/manutencao.md`
 
-### Etapa A1 — Casca do app
-- [ ] `src/main.jsx`, `src/App.jsx` com as rotas `/v1` e `/v2`
-
-### Etapa A2 — Versão 1 (dívida técnica deliberada)
-- [ ] `src/v1/ReservaV1.jsx` — componente único, regra duplicada em três
-      pontos, uma das cópias divergente
-- [ ] `docs/smells-planejados.md` — catálogo do que foi plantado e por quê
-
-### Etapa A3 — Versão 2 (refatorada)
-- [ ] Componentes extraídos
-- [ ] Consome `src/dominio/` em vez de reimplementar a regra
-- [ ] HTML semântico e rótulos associados
-
-### Etapa A4 — Capítulo de Manutenção
-- [ ] `docs/manutencao.md` — cada *smell* da v1 e a técnica aplicada na v2
+## Etapa 6 — Apresentação ✅
+- [x] `docs/apresentacao.md` — roteiro de 17 min com perguntas prováveis
+- [ ] **Ensaio cronometrado** — pendente, depende de vocês
 
 ---
 
-## Etapa Final — Apresentação (conjunto)
+## Medições registradas
 
-- [ ] Roteiro cronometrado, 15 a 20 minutos
-- [ ] Ensaio com a auditoria rodando ao vivo
-- [ ] Plano B: relatório salvo em arquivo, caso a rede ou o navegador falhem
+Execução em 21/09/2026, build de produção, axe-core 4.13.0, Lighthouse 13.5.0.
+
+```
+Lighthouse:  v1 78/100          v2 100/100
+             peso aplicável: v1=139  v2=170
+
+axe-core:    v1 3 violações / 8 elementos     v2 0
+             color-contrast  2 elem  [serious]
+             label           3 elem  [critical]
+             select-name     3 elem  [critical]
+
+Teclado:     v1 recebe foco=false, Tab=false
+             v2 recebe foco=true,  Tab=true
+
+Custo na v1: label -7,2 pts | select-name -7,2 | color-contrast -5
+             heading-order -2,2 (só o Lighthouse reprova: é best-practice)
+```
 
 ---
 
 ## Os três limites do instrumento
 
-Precisam aparecer no documento e na apresentação. São eles que separam "rodei
-uma ferramenta" de "entendi o que a ferramenta mede".
+São eles que separam "rodei uma ferramenta" de "entendi o que a ferramenta
+mede". Os três foram confirmados por medição própria, não apenas citados.
 
-1. **Lighthouse usa axe-core, mas os números não batem.** O Lighthouse roda um
-   subconjunto das regras, converte cada regra em aprovado/reprovado com peso
-   (doze elementos quebrados custam o mesmo que um) e audita em viewport móvel
-   emulado. A auditoria direta roda em viewport de desktop. A divergência é
-   estrutural, não é erro.
+1. **Lighthouse usa axe-core e mesmo assim diverge.** Subconjunto de regras,
+   agregação binária com pesos, denominador variável por página. Medido aqui:
+   `heading-order` reprovado só pelo Lighthouse (é `best-practice`, fora do
+   filtro WCAG da nossa execução); base de peso 139 na v1 contra 170 na v2.
 
-2. **Nota 100 não significa acessível.** O estudo da Deque sobre mais de duas
-   mil auditorias mediu 57,38% do volume de problemas detectável por automação,
-   cobrindo 16 dos 50 critérios WCAG 2.1 AA. Operação por teclado, ordem de
-   foco e sentido para leitor de tela ficam fora — o próprio Lighthouse os
-   classifica como verificação manual.
+2. **Nota 100 não significa acessível.** A Deque mediu 57,38% do volume de
+   problemas detectável por automação, cobrindo 16 dos 50 critérios WCAG 2.1
+   AA. Operação por teclado, ordem de foco e sentido para leitor de tela ficam
+   fora.
 
-3. **Contraste de cor não é verificável fora do navegador.** Teste de
-   componente em ambiente simulado não tem layout nem cor computada: ele
-   detecta rótulo e nome acessível, mas silencia sobre contraste. Só a
-   auditoria em navegador real enxerga esse defeito.
+3. **O defeito mais grave escapou dos dois motores.** O falso botão da v1 não
+   gera violação porque não existe regra para uma `div` que deveria ser botão.
+   Falso negativo por ausência — só a verificação de teclado o encontra. Este
+   substituiu o limite que havíamos previsto (contraste em ambiente simulado),
+   por ser mais forte e ter sido observado na prática.
