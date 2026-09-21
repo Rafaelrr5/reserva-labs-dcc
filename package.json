@@ -1,0 +1,23 @@
+{
+  "name": "reserva-labs-dcc",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Reserva de laboratorios do DCC em duas versoes: v1 com divida tecnica deliberada, v2 refatorada. Trabalho de Engenharia de Software.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "vite": "^7.1.14",
+    "vitest": "^3.2.4"
+  }
+}
