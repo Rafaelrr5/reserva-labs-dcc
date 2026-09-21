@@ -67,6 +67,58 @@ async function medirTeclado(contexto, versao) {
   return { recebeFoco, alcancavelPorTab };
 }
 
+// Tarefa completa usando SOMENTE o teclado.
+//
+// Medida de IHC, nao de conformidade: nao pergunta "que regra foi violada",
+// pergunta "a pessoa consegue concluir o que veio fazer". O roteiro percorre
+// o formulario com Tab, preenche, aciona com Enter e confere se a reserva
+// realmente entrou na lista.
+async function medirTarefaPorTeclado(contexto, versao) {
+  const pagina = await contexto.newPage();
+  await pagina.goto(`${BASE}/#/${versao}`, { waitUntil: 'load' });
+  await pagina.waitForSelector('[data-testid="form-reserva"]');
+
+  const linhas = () => pagina.locator('[data-testid="lista-reservas"] tbody tr').count();
+  const antes = await linhas();
+
+  const marcador = () =>
+    pagina.evaluate(() => document.activeElement?.getAttribute('data-testid') ?? null);
+
+  await pagina.evaluate(() => document.body.focus());
+
+  let paradas = 0;
+  let acionou = false;
+
+  for (let i = 0; i < 40 && !acionou; i++) {
+    await pagina.keyboard.press('Tab');
+    const atual = await marcador();
+    if (atual) paradas++;
+
+    if (atual === 'campo-horario') {
+      // 08:00 conflita com a reserva existente; desce duas opcoes ate 13:00.
+      await pagina.keyboard.press('ArrowDown');
+      await pagina.keyboard.press('ArrowDown');
+    }
+    if (atual === 'campo-responsavel') {
+      await pagina.keyboard.type('Teste por teclado');
+    }
+    if (atual === 'botao-reservar') {
+      await pagina.keyboard.press('Enter');
+      acionou = true;
+    }
+  }
+
+  await pagina.waitForTimeout(300);
+  const depois = await linhas();
+  await pagina.close();
+
+  return {
+    paradasNoFormulario: paradas,
+    acionadorAlcancado: acionou,
+    reservaRegistrada: depois > antes,
+  };
+}
+
 async function medirLighthouse(versao) {
   const { lhr } = await lighthouse(`${BASE}/#/${versao}`, {
     port: PORTA_DEBUG,
@@ -119,8 +171,13 @@ function imprimirComparativo(medidas) {
   console.log('\n=== Operacao por teclado (nenhuma ferramenta detecta) ===\n');
   for (const versao of VERSOES) {
     const t = medidas[versao].teclado;
+    const tf = medidas[versao].tarefa;
     console.log(
       `  ${versao}: recebe foco=${t.recebeFoco}   alcancavel por Tab=${t.alcancavelPorTab}`
+    );
+    console.log(
+      `      tarefa completa so com teclado: ${tf.reservaRegistrada ? 'CONCLUIDA' : 'IMPOSSIVEL'}` +
+        `   (paradas de foco no formulario: ${tf.paradasNoFormulario})`
     );
   }
   console.log('  O acionador da v1 e uma <div>: nao ha regra violada, so funcao ausente.');
@@ -153,6 +210,7 @@ try {
     medidas[versao] = {
       axe: await medirAxe(contexto, versao),
       teclado: await medirTeclado(contexto, versao),
+      tarefa: await medirTarefaPorTeclado(contexto, versao),
       lh: await medirLighthouse(versao),
     };
   }
@@ -166,16 +224,18 @@ mkdirSync('relatorios', { recursive: true });
 writeFileSync('relatorios/auditoria.json', JSON.stringify(medidas, null, 2));
 console.log('\n  Dados completos em relatorios/auditoria.json');
 
-// Porta de qualidade: a v2 precisa ser melhor nos dois instrumentos.
+// Porta de qualidade: a v2 precisa ser melhor nos tres instrumentos.
 const notaSubiu = medidas.v2.lh.nota > medidas.v1.lh.nota;
 const violacoesCairam = medidas.v2.axe.totalNos < medidas.v1.axe.totalNos;
+const tarefaConcluivel = medidas.v2.tarefa.reservaRegistrada;
 
 console.log(
-  `\n  Porta de qualidade: nota subiu=${notaSubiu}, elementos com violacao cairam=${violacoesCairam}`
+  `\n  Porta de qualidade: nota subiu=${notaSubiu}, elementos com violacao cairam=${violacoesCairam}, ` +
+    `tarefa concluivel so com teclado=${tarefaConcluivel}`
 );
 
-if (!notaSubiu || !violacoesCairam) {
-  console.error('\n  REPROVADO: a v2 nao superou a v1 nos dois instrumentos.\n');
+if (!notaSubiu || !violacoesCairam || !tarefaConcluivel) {
+  console.error('\n  REPROVADO: a v2 nao superou a v1 em todos os instrumentos.\n');
   process.exit(1);
 }
 console.log('  APROVADO\n');
