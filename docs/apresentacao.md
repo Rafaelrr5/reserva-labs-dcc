@@ -3,10 +3,10 @@
 **Temas: Interação Homem-Computador e Qualidade de Software.**
 
 Alvo: 19 minutos, dentro dos 15–20 exigidos. Os tempos são de ensaio,
-não de improviso. Se o ensaio passar de 20, encurte a Parte 1 (slides 6 e 8
+não de improviso. Se o ensaio passar de 20, encurte a Parte 1 (slides 6, 7 e 9
 podem ser lidos em 20 segundos cada).
 
-Slides: `apresentacao/slides.html` (18 telas; PDF para o Classroom em
+Slides: `apresentacao/slides.html` (20 telas; PDF para o Classroom em
 `apresentacao/slides.pdf`). O enunciado pede uma parte sobre o documento-texto
 e outra sobre o código: a Parte 1 cobre o documento, o restante cobre o código.
 
@@ -32,7 +32,7 @@ Abra também `apresentacao/slides.html` em tela cheia.
 
 ## 0. Parte 1 — os temas do documento-texto — 5 min
 
-*Slides 1 a 9.* Uma pessoa apresenta; a outra prepara a demonstração.
+*Slides 1 a 10.* Uma pessoa apresenta; a outra prepara a demonstração.
 
 - **Slides 3 e 4 (IHC, 1,5 min):** definição pela ISO 9241-11 e linha do tempo.
   Feche com a NBR 17225 (2025) e a Lei Brasileira de Inclusão: acessibilidade
@@ -40,19 +40,20 @@ Abra também `apresentacao/slides.html` em tela cheia.
 - **Slides 5 e 6 (Qualidade, 1,5 min):** as 9 características da ISO/IEC
   25010:2023. Aponte a troca de "usabilidade" por "capacidade de interação":
   é a ponte entre os dois temas.
-- **Slide 7 (normas e ferramentas, 40 s):** termine nos 57% da Deque. Esse
-  número volta na demonstração.
-- **Slide 8 (mercado, 30 s):** profissões e certificações; nenhuma é exigida
+- **Slide 7 (normas, 30 s):** só leia as duas colunas.
+- **Slide 8 (limite das ferramentas, 30 s):** os 57% da Deque. Esse número
+  volta na demonstração.
+- **Slide 9 (mercado, 30 s):** profissões e certificações; nenhuma é exigida
   por lei.
-- **Slide 9 (IA, 50 s):** três números e uma frase: a IA produz mais rápido,
+- **Slide 10 (IA, 50 s):** três números e uma frase: a IA produz mais rápido,
   medir ficou mais importante. O dado da GitClear (mais código copiado) prepara
-  o defeito de manutenção do slide 15.
+  o defeito de manutenção do slide 17.
 
 ---
 
 ## 1. Problema e enquadramento — 1 min
 
-*Slide 10.*
+*Slides 11 e 12.*
 
 Reserva de laboratórios do DCC. Duas implementações da mesma funcionalidade:
 uma com dívida técnica, outra refatorada.
@@ -67,9 +68,7 @@ experiência de uso (IHC) e testam a capacidade dos instrumentos de detectá-los
 
 ## 1b. Conceitos — 1,5 min
 
-*Slide 11.*
-
-*Slides 4 a 11.* Affordance e significante, os dois golfos de Norman, a tarefa
+*Sem slide próprio: fale por cima do slide 12.* Affordance e significante, os dois golfos de Norman, a tarefa
 como unidade de medida, conformidade, níveis de verificação, falso negativo por
 ausência e o alcance da automação.
 
@@ -78,7 +77,7 @@ O objetivo aqui é só dar nome às coisas antes de mostrá-las.
 
 ## 2. A v1 funcionando — 1 min
 
-*Slide 12 mostra a tela e o código, caso a demonstração ao vivo falhe.*
+*Slides 13 e 14 mostram as telas e o código, caso a demonstração ao vivo falhe.*
 
 Abra `#/v1` e faça uma reserva com o mouse. Funciona. Parece pronta.
 
@@ -114,7 +113,7 @@ Abra `#/v2` e repita a tarefa pelo teclado. Conclui.
 
 ## 4. Qualidade — a auditoria ao vivo — 3 min
 
-*Slide 13 tem a tabela, caso a auditoria não rode na máquina da sala.*
+*Slide 15 tem a tabela, caso a auditoria não rode na máquina da sala.*
 
 *Esta é a parte de Qualidade de Software.*
 
@@ -142,7 +141,7 @@ v1 nos três instrumentos. Mesma função de um portão de integração contínu
 
 ## 5. O encontro dos dois temas — 2 min
 
-*Slide 14.*
+*Slide 16.*
 
 **O momento mais forte da apresentação.**
 
@@ -166,7 +165,7 @@ perguntas que ela faz.**
 
 ## 6. O defeito que nem é de interface — 1,5 min
 
-*Slide 15.*
+*Slide 17.*
 
 Com a reserva das 08:00 às 10:00 na tela, selecione 10:00 como início.
 
@@ -188,7 +187,7 @@ três cópias.*
 
 ## 7. Fechamento — 1 min
 
-*Slides 16 a 18.*
+*Slides 18 a 20.*
 
 Três afirmações, sem exagerar o alcance:
 

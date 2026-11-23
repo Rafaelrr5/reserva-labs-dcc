@@ -1,6 +1,6 @@
 # Apresentação
 
-`slides.html` é a apresentação completa (18 slides): a Parte 1 cobre os temas do
+`slides.html` é a apresentação completa (20 slides): a Parte 1 cobre os temas do
 documento-texto e o restante cobre o código. `slides.pdf` é a versão em PDF para
 o Classroom. As mesmas teclas abaixo funcionam nos dois arquivos.
 

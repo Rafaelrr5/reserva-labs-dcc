@@ -6,77 +6,115 @@
 <title>IHC e Qualidade de Software — DCC061 — Grupo 5</title>
 <style>
   :root {
-    --tinta: #16181d;
-    --fraca: #4a4f57;
+    --tinta: #14171c;
+    --fraca: #505864;
     --azul: #1a4f8a;
-    --coral: #a62617;
+    --azul-claro: #e6eef8;
+    --coral: #b3321f;
+    --coral-claro: #fbeae6;
+    --verde: #1d6b3a;
+    --verde-claro: #e5f3ea;
     --linha: #d5d8dd;
     --fundo: #f4f6f9;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: #e9ecf0;
-    font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif; color: var(--tinta); }
+    font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--tinta); }
 
-  /* cada slide é uma folha 16:9; na tela escala para caber na janela */
-  .slide { display: none; position: relative; width: 1280px; height: 720px; padding: 58px 84px 86px;
+  .slide { display: none; position: relative; width: 1280px; height: 720px; padding: 64px 90px 100px;
     background: #fff; flex-direction: column; justify-content: center; overflow: hidden; }
   .slide.ativo { display: flex; }
   #palco { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
-  #escala { transform-origin: center center; }
 
-  h1 { font-size: 50px; line-height: 1.1; margin: 0 0 22px; }
-  h2 { font-size: 36px; line-height: 1.2; margin: 0 0 26px; }
-  p  { font-size: 23px; line-height: 1.45; margin: 0 0 14px; max-width: 980px; }
-  li { font-size: 22px; line-height: 1.4; margin-bottom: 11px; }
-  ul { padding-left: 1.1em; margin: 0; }
-  .etiqueta { font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--azul);
-    font-weight: 700; margin-bottom: 18px; }
-  .etiqueta.q { color: var(--coral); }
-  .etiqueta.g { color: var(--fraca); }
+  /* faixa de seção no topo */
+  .slide::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 10px; background: var(--faixa, var(--fraca)); }
+  .ihc { --faixa: var(--azul); }
+  .qual { --faixa: var(--coral); }
+  .ambos { --faixa: linear-gradient(90deg, var(--azul) 50%, var(--coral) 50%); }
+
+  .etiqueta { font-size: 18px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+    color: var(--fraca); margin: 0 0 14px; }
+  .ihc .etiqueta { color: var(--azul); }
+  .qual .etiqueta { color: var(--coral); }
+  h1 { font-size: 58px; line-height: 1.08; margin: 0 0 24px; }
+  h2 { font-size: 40px; line-height: 1.15; margin: 0 0 34px; max-width: 1080px; }
+  p { font-size: 26px; line-height: 1.4; margin: 0 0 16px; }
   .sub { color: var(--fraca); }
-  .peq { font-size: 18px; }
-  .mini { font-size: 15px; color: var(--fraca); }
-  .destaque { color: var(--azul); font-weight: 650; }
-  .alerta { color: var(--coral); font-weight: 650; }
-  .tese { font-size: 34px; line-height: 1.3; font-weight: 650; border-left: 6px solid var(--azul);
-    padding-left: 22px; max-width: 900px; }
-  blockquote { margin: 0 0 18px; padding: 18px 26px; background: var(--fundo); border-left: 5px solid var(--azul);
-    font-size: 25px; line-height: 1.45; }
-  table { border-collapse: collapse; margin-top: 6px; }
-  th, td { text-align: left; padding: 10px 30px 10px 0; border-bottom: 1px solid var(--linha); font-size: 21px; vertical-align: top; }
-  th { color: var(--fraca); font-weight: 600; }
-  .nao { color: var(--coral); font-weight: 650; }
-  .sim { color: #1d6b3a; font-weight: 650; }
-  code { font-family: ui-monospace, "Cascadia Code", Consolas, "DejaVu Sans Mono", monospace; background: #eef0f3;
-    padding: .1em .35em; font-size: .9em; }
-  pre { font-family: ui-monospace, "Cascadia Code", Consolas, "DejaVu Sans Mono", monospace; background: #16181d; color: #e9edf2;
-    padding: 18px 22px; font-size: 19px; line-height: 1.5; margin: 0 0 16px; border-radius: 4px; }
-  pre .c { color: #8a94a3; } pre .r { color: #ff8f80; } pre .v { color: #8fd19e; }
+  .meio { display: flex; flex-direction: column; justify-content: center; }
+  b.az { color: var(--azul); } b.co { color: var(--coral); }
 
-  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; align-items: start; }
-  .cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
-  .card { background: var(--fundo); padding: 20px 24px; border-top: 4px solid var(--azul); }
-  .card.q { border-top-color: var(--coral); }
-  .card h3 { font-size: 21px; margin: 0 0 10px; }
-  .card p, .card li { font-size: 18px; line-height: 1.4; margin-bottom: 6px; }
-  .numero { font-size: 54px; font-weight: 750; line-height: 1; color: var(--azul); margin-bottom: 8px; }
-  .numero.q { color: var(--coral); }
+  /* três caixas grandes */
+  .tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .dois { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .caixa { background: var(--fundo); padding: 26px 28px; border-radius: 6px; }
+  .caixa h3 { font-size: 30px; margin: 0 0 10px; }
+  .caixa p { font-size: 23px; margin: 0; color: var(--fraca); }
+  .caixa.az { background: var(--azul-claro); } .caixa.az h3 { color: var(--azul); }
+  .caixa.co { background: var(--coral-claro); } .caixa.co h3 { color: var(--coral); }
+  .caixa.vd { background: var(--verde-claro); } .caixa.vd h3 { color: var(--verde); }
 
-  .tempo { list-style: none; padding: 0; margin: 0; border-left: 3px solid var(--linha); }
-  .tempo li { position: relative; padding-left: 26px; margin-bottom: 12px; font-size: 20px; }
-  .tempo li::before { content: ""; position: absolute; left: -8px; top: 9px; width: 13px; height: 13px;
-    border-radius: 50%; background: var(--azul); }
-  .tempo.q li::before { background: var(--coral); }
-  .tempo b { display: inline-block; min-width: 64px; }
+  /* linha do tempo horizontal */
+  .linha { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 30px; }
+  .linha::before { content: ""; position: absolute; left: 0; right: 0; top: 64px; height: 4px; background: var(--faixa); }
+  .marco { position: relative; padding-right: 18px; }
+  .marco .ano { font-size: 36px; font-weight: 800; color: var(--tinta); height: 52px; }
+  .marco .ponto { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 5px solid var(--azul); margin: 1px 0 20px; position: relative; }
+  .qual .marco .ponto { border-color: var(--coral); }
+  .marco p { font-size: 22px; line-height: 1.35; margin: 0; }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
-  .chip { font-size: 18px; padding: 8px 14px; background: var(--fundo); border: 1px solid var(--linha); }
-  .chip.forte { background: var(--azul); color: #fff; border-color: var(--azul); font-weight: 650; }
+  /* grade de características */
+  .grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .grade span { font-size: 22px; padding: 14px 18px; background: var(--fundo); border-radius: 4px; }
+  .grade span.forte { background: var(--azul); color: #fff; font-weight: 700; }
 
-  .shot { border: 1px solid var(--linha); box-shadow: 0 6px 24px rgba(0,0,0,.08); }
-  .rodape { position: absolute; bottom: 26px; left: 84px; right: 84px; display: flex; justify-content: space-between;
-    font-size: 14px; color: var(--fraca); border-top: 1px solid var(--linha); padding-top: 10px; }
-  .fonte { position: absolute; bottom: 58px; left: 84px; right: 84px; font-size: 13px; color: var(--fraca); }
+  /* números grandes */
+  .num { font-size: 92px; font-weight: 800; line-height: 1; margin-bottom: 12px; }
+  .num.az { color: var(--azul); } .num.co { color: var(--coral); }
+  .fonte-dado { font-size: 18px; color: var(--fraca); margin-top: 10px; }
+
+  /* listas curtas */
+  ul.curta { list-style: none; padding: 0; margin: 0; }
+  ul.curta li { font-size: 25px; line-height: 1.3; padding: 11px 0; border-bottom: 1px solid var(--linha); }
+  ul.curta li:last-child { border-bottom: 0; }
+  ul.curta li small { display: block; font-size: 19px; color: var(--fraca); margin-top: 2px; }
+
+  /* placar de resultados */
+  .placar { display: grid; grid-template-columns: 1.4fr 1fr 1fr; border-top: 2px solid var(--tinta); }
+  .placar div { font-size: 26px; padding: 16px 14px; border-bottom: 1px solid var(--linha); }
+  .placar .cab { font-size: 20px; color: var(--fraca); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+  .placar .ruim { color: var(--coral); font-weight: 700; background: var(--coral-claro); }
+  .placar .bom { color: var(--verde); font-weight: 700; background: var(--verde-claro); }
+
+  /* verificações */
+  .check { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .check .caixa { text-align: center; padding: 30px 20px; }
+  .check .icone { font-size: 64px; font-weight: 800; line-height: 1; margin-bottom: 12px; }
+  .check .ok { color: var(--verde); } .check .x { color: var(--coral); }
+
+  pre { font-family: "DejaVu Sans Mono", ui-monospace, Consolas, monospace; background: #16181d; color: #e9edf2;
+    padding: 22px 26px; font-size: 24px; line-height: 1.55; margin: 0; border-radius: 6px; }
+  pre .c { color: #9aa3b1; } pre .r { color: #ff8f80; } pre .v { color: #8fd19e; }
+  code { font-family: "DejaVu Sans Mono", ui-monospace, Consolas, monospace; background: #eef0f3; padding: .05em .3em; font-size: .9em; }
+
+  .telas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .tela { text-align: center; }
+  .tela .moldura { border: 1px solid var(--linha); border-radius: 6px; background: #fff; padding: 12px; }
+  .tela img { width: 100%; display: block; }
+  .tela p { margin-top: 16px; font-size: 24px; }
+
+  /* barra de horário */
+  .agenda { position: relative; height: 96px; margin: 10px 0 34px; border-bottom: 2px solid var(--tinta); }
+  .agenda .bloco { position: absolute; top: 12px; height: 60px; background: var(--azul); color: #fff; font-size: 22px;
+    display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: 700; }
+  .agenda .hora { position: absolute; bottom: -34px; font-size: 20px; color: var(--fraca); transform: translateX(-50%); }
+  .agenda .marca10 { position: absolute; top: 0; bottom: 0; width: 4px; background: var(--coral); }
+
+  .tese { font-size: 38px; line-height: 1.3; font-weight: 700; border-left: 8px solid var(--azul); padding-left: 26px; max-width: 1000px; }
+  .ambos .tese { border-left-color: var(--coral); }
+
+  .rodape { position: absolute; bottom: 26px; left: 90px; right: 90px; display: flex; justify-content: space-between;
+    font-size: 16px; color: var(--fraca); border-top: 1px solid var(--linha); padding-top: 10px; }
+  .citacao { position: absolute; bottom: 64px; left: 90px; right: 90px; font-size: 16px; color: var(--fraca); }
 
   @page { size: 1280px 720px; margin: 0; }
   @media print {
@@ -91,284 +129,303 @@
 <body>
 <div id="palco"><div id="escala">
 
-<!-- 1 -->
-<section class="slide ativo">
-  <p class="etiqueta">DCC061 · Engenharia de Software · Grupo 5</p>
-  <h1>Interação Homem-Computador<br>e Qualidade de Software</h1>
-  <p class="sub">Quando o sistema passa na prova e mesmo assim não funciona</p>
-  <p class="sub peq" style="margin-top:40px">Gabriella Margarida Ribeiro Soares · Rafael Rocha Ribeiro<br>Prof. Fabrício Martins Mendonça · UFJF · 2026</p>
-</section>
-
-<!-- 2 -->
-<section class="slide">
-  <h2>Roteiro</h2>
-  <div class="cols3">
-    <div class="card"><p class="etiqueta" style="margin-bottom:8px">Parte 1</p><h3>Os dois temas</h3><p>Definição, histórico, normas, mercado e impactos da IA, como no documento-texto.</p></div>
-    <div class="card q"><p class="etiqueta q" style="margin-bottom:8px">Parte 2</p><h3>O código</h3><p>Um sistema de reserva de laboratórios feito duas vezes, medido ao vivo.</p></div>
-    <div class="card" style="border-top-color:var(--fraca)"><p class="etiqueta g" style="margin-bottom:8px">Parte 3</p><h3>O que aprendemos</h3><p>O que os dois temas dizem juntos e os limites do que medimos.</p></div>
+<!-- 1 capa -->
+<section class="slide ativo ambos">
+  <div class="meio">
+    <p class="etiqueta">DCC061 · Engenharia de Software · Grupo 5</p>
+    <h1>Interação Homem-Computador<br>e Qualidade de Software</h1>
+    <p class="sub">Quando o sistema passa nas ferramentas e mesmo assim não funciona</p>
+    <p class="sub" style="font-size:22px;margin-top:40px">Gabriella Margarida Ribeiro Soares · Rafael Rocha Ribeiro<br>Prof. Fabrício Martins Mendonça · UFJF · 2026</p>
   </div>
 </section>
 
-<!-- 3 -->
-<section class="slide">
-  <p class="etiqueta">Parte 1 · Interação Homem-Computador</p>
-  <h2>O que é IHC</h2>
-  <p>A disciplina que trata do projeto, da avaliação e da implementação de sistemas interativos para uso humano (ACM SIGCHI, 1992).</p>
-  <p class="sub peq" style="margin:10px 0 8px">Usabilidade, segundo a ISO 9241-11:2018:</p>
-  <blockquote>grau em que um sistema pode ser usado por <b>usuários específicos</b> para alcançar <b>objetivos específicos</b> com <span class="destaque">eficácia</span>, <span class="destaque">eficiência</span> e <span class="destaque">satisfação</span> em um <b>contexto de uso</b> específico.</blockquote>
-  <p class="peq sub">Eficácia: conseguiu? · Eficiência: a que custo? · Satisfação: como se sentiu?</p>
-</section>
-
-<!-- 4 -->
-<section class="slide">
-  <p class="etiqueta">Parte 1 · Interação Homem-Computador</p>
-  <h2>De adaptar a pessoa à máquina a adaptar a máquina à pessoa</h2>
-  <div class="cols">
-    <ul class="tempo">
-      <li><b>1963</b> Sketchpad (Sutherland): desenho direto na tela</li>
-      <li><b>1968</b> Engelbart demonstra o mouse ao vivo</li>
-      <li><b>1970s</b> Xerox Alto: janelas, mouse, interface gráfica</li>
-      <li><b>1982</b> nasce a ACM SIGCHI</li>
-      <li><b>1988</b> Norman: affordance e os golfos</li>
-    </ul>
-    <ul class="tempo">
-      <li><b>1994</b> As 10 heurísticas de Nielsen</li>
-      <li><b>2015</b> Lei Brasileira de Inclusão, art. 63</li>
-      <li><b>2019</b> ISO 9241-210: design centrado no humano</li>
-      <li><b>2023</b> WCAG 2.2 (W3C)</li>
-      <li><b>2025</b> ABNT NBR 17225: acessibilidade web</li>
-    </ul>
-  </div>
-  <p class="fonte">Fontes: Sutherland (2003); DARPA; Computer History Museum; Nielsen (1994); ISO (2019); W3C (2023); Brasil (2015); Ceweb.br (2025).</p>
-</section>
-
-<!-- 5 -->
-<section class="slide">
-  <p class="etiqueta q">Parte 1 · Qualidade de Software</p>
-  <h2>Qualidade é mais que seguir a especificação</h2>
-  <p>Conformidade (Crosby, 1979) não basta: especificações são incompletas. O foco passa a ser a <b>adequação à finalidade</b>.</p>
-  <p class="sub peq" style="margin-top:6px">As 9 características da ISO/IEC 25010:2023</p>
-  <div class="chips">
-    <span class="chip">Adequação funcional</span><span class="chip">Eficiência de desempenho</span><span class="chip">Compatibilidade</span>
-    <span class="chip forte">Capacidade de interação</span><span class="chip">Confiabilidade</span><span class="chip">Segurança da informação</span>
-    <span class="chip">Manutenibilidade</span><span class="chip">Flexibilidade</span><span class="chip">Segurança (safety)</span>
-  </div>
-  <p style="margin-top:26px">Em 2023, <span class="destaque">"usabilidade" virou "capacidade de interação"</span> e ganhou <b>inclusividade</b>. A norma de qualidade passou a falar a língua da IHC.</p>
-  <p class="fonte">Fontes: ISO/IEC 25010:2023; Mendonça (2026), Aula 7.</p>
-</section>
-
-<!-- 6 -->
-<section class="slide">
-  <p class="etiqueta q">Parte 1 · Qualidade de Software</p>
-  <h2>Da fábrica ao código</h2>
-  <div class="cols">
-    <ul class="tempo q">
-      <li><b>1911</b> Taylor: administração científica</li>
-      <li><b>1977</b> Modelo de qualidade de McCall</li>
-      <li><b>1979</b> Crosby: "qualidade é de graça"</li>
-      <li><b>1991</b> ISO/IEC 9126</li>
-      <li><b>2002</b> Fundação do ISTQB</li>
-    </ul>
-    <ul class="tempo q">
-      <li><b>2003</b> MPS.BR (Softex)</li>
-      <li><b>2011</b> ISO/IEC 25010 substitui a 9126</li>
-      <li><b>2013</b> ISO/IEC/IEEE 29119 (testes)</li>
-      <li><b>2023</b> CMMI 3.0 · 25010 revisada · CTFL 4.0</li>
-      <li><b>2023</b> ISO/IEC 25059: qualidade de sistemas de IA</li>
-    </ul>
-  </div>
-  <p class="fonte">Fontes: Mendonça (2026); Minard (2020); Softex (2007); IEC; ISTQB (2023); ISO/IEC (2023).</p>
-</section>
-
-<!-- 7 -->
-<section class="slide">
-  <p class="etiqueta g">Parte 1 · Os dois temas</p>
-  <h2>Normas e ferramentas</h2>
-  <table>
-    <tr><th></th><th>IHC</th><th>Qualidade</th></tr>
-    <tr><td class="sub">Normas</td><td>ISO 9241-11 e 9241-210<br>WCAG 2.2 · NBR 17225 · eMAG<br>Lei 13.146/2015, art. 63</td><td>ISO/IEC 25010 · ISO 9001<br>CMMI 3.0 · MPS.BR<br>ISO/IEC/IEEE 29119</td></tr>
-    <tr><td class="sub">Ferramentas</td><td>Figma, protótipos, personas<br>axe-core, Lighthouse, WAVE<br>leitores de tela, testes com usuários</td><td>testes automatizados (Vitest, JUnit)<br>Playwright, SonarQube, linters<br>integração contínua, revisões</td></tr>
-  </table>
-  <p class="peq" style="margin-top:24px">Limite comum: a automação de acessibilidade encontra cerca de <b>57%</b> dos problemas (Deque, 2021). <b>94,8%</b> das páginas iniciais mais acessadas ainda falham em verificações automáticas da WCAG (WebAIM, 2025).</p>
-</section>
-
-<!-- 8 -->
-<section class="slide">
-  <p class="etiqueta g">Parte 1 · Mercado de trabalho</p>
-  <h2>Profissões e certificações</h2>
-  <div class="cols">
-    <div class="card">
-      <h3>IHC</h3>
-      <p>Designer de UX/UI e de produto · pesquisador de UX · UX writer · especialista em acessibilidade · front-end</p>
-      <p class="sub" style="margin-top:10px">CPUX-F (UXQB) · UX Certification (NN/g) · CPACC e WAS (IAAP) · CT-UT e CT-DAT (ISTQB, nov/2026)</p>
-    </div>
-    <div class="card q">
-      <h3>Qualidade</h3>
-      <p>Analista de testes/QA · engenheiro de automação (SDET) · engenheiro de qualidade (SQA) · auditor de maturidade</p>
-      <p class="sub" style="margin-top:10px">CTFL 4.0 (ISTQB/BSTQB) · CSQE (ASQ) · para empresas: ISO 9001, CMMI, MPS.BR</p>
+<!-- 2 roteiro -->
+<section class="slide ambos">
+  <h2>O que vamos apresentar</h2>
+  <div class="meio">
+    <div class="tres">
+      <div class="caixa az"><h3>1. Os temas</h3><p>IHC e Qualidade: conceito, história, normas, mercado e IA</p></div>
+      <div class="caixa co"><h3>2. O código</h3><p>O mesmo sistema feito duas vezes e medido</p></div>
+      <div class="caixa"><h3>3. Conclusão</h3><p>O que os dois temas mostram juntos</p></div>
     </div>
   </div>
-  <p class="peq" style="margin-top:24px">Nenhuma certificação é exigida por lei para atuar nessas áreas no Brasil; elas comprovam conhecimento.</p>
 </section>
 
-<!-- 9 -->
-<section class="slide">
-  <p class="etiqueta g">Parte 1 · Inteligência Artificial</p>
-  <h2>A IA produz mais rápido. Medir ficou mais importante.</h2>
-  <div class="cols3">
-    <div><div class="numero">84%</div><p class="peq">usam ou planejam usar IA no desenvolvimento; <b>46%</b> desconfiam da precisão, <b>33%</b> confiam</p><p class="mini">Stack Overflow, 2025</p></div>
-    <div><div class="numero q">−7,2%</div><p class="peq">de estabilidade nas entregas associada ao aumento da adoção de IA</p><p class="mini">DORA / Google, 2024</p></div>
-    <div><div class="numero q">2×</div><p class="peq">rotatividade de código projetada para 2024 vs. 2021, com mais código copiado e colado</p><p class="mini">GitClear, 2024</p></div>
+<!-- 3 IHC definição -->
+<section class="slide ihc">
+  <p class="etiqueta">1 · Interação Homem-Computador</p>
+  <h2>IHC estuda se as pessoas conseguem usar o sistema</h2>
+  <p class="sub">Usabilidade tem três partes (ISO 9241-11):</p>
+  <div class="tres" style="margin-top:14px">
+    <div class="caixa az"><h3>Eficácia</h3><p>A pessoa conseguiu fazer o que queria?</p></div>
+    <div class="caixa az"><h3>Eficiência</h3><p>Quanto tempo e esforço isso custou?</p></div>
+    <div class="caixa az"><h3>Satisfação</h3><p>O sistema atendeu ao que ela esperava?</p></div>
   </div>
-  <p class="peq" style="margin-top:26px"><b>Em IHC:</b> "usuários sintéticos" gerados por IA não substituem pesquisa com pessoas reais (NN/g, 2024). <b>Em Qualidade:</b> a ISO/IEC 25059 define qualidade para sistemas que contêm IA.</p>
+  <p class="citacao">Fontes: ISO 9241-11:2018; Hewett et al. (1992).</p>
 </section>
 
-<!-- 10 -->
-<section class="slide">
-  <p class="etiqueta q">Parte 2 · O código</p>
-  <h2>A pergunta que o código investiga</h2>
-  <p class="tese">Um sistema pode passar nas verificações automatizadas de qualidade e ainda assim ser impossível de usar para parte das pessoas?</p>
-  <p class="sub" style="margin-top:26px">Reserva de laboratórios do DCC, implementada duas vezes:<br><b>versão 1</b> com defeitos colocados de propósito · <b>versão 2</b> refatorada, mesma função.</p>
-  <p class="mini" style="margin-top:20px">github.com/Rafaelrr5/reserva-labs-dcc</p>
-</section>
-
-<!-- 11 -->
-<section class="slide">
-  <p class="etiqueta q">Parte 2 · Conceitos que vamos usar</p>
-  <h2>Quatro ideias antes da demonstração</h2>
-  <div class="cols">
-    <div class="card"><h3>Affordance e significante</h3><p>O sinal visual promete uma ação. Se o código não entrega, a pessoa tenta e falha sem entender por quê.</p></div>
-    <div class="card"><h3>Tarefa como medida</h3><p>"A pessoa consegue reservar?" é binário: ou a reserva entra na lista, ou não entra.</p></div>
-    <div class="card q"><h3>Conformidade</h3><p>Ferramentas comparam o sistema com regras conhecidas (WCAG). A resposta é confiável; a cobertura é limitada.</p></div>
-    <div class="card q"><h3>Falso negativo por ausência</h3><p>A verificação passa porque o elemento que seria verificado não existe.</p></div>
+<!-- 4 IHC história -->
+<section class="slide ihc">
+  <p class="etiqueta">1 · Interação Homem-Computador</p>
+  <h2>A máquina passou a se adaptar à pessoa</h2>
+  <div class="linha">
+    <div class="marco"><div class="ano">1963</div><div class="ponto"></div><p>Sketchpad: desenhar direto na tela</p></div>
+    <div class="marco"><div class="ano">1968</div><div class="ponto"></div><p>Engelbart mostra o mouse ao vivo</p></div>
+    <div class="marco"><div class="ano">1982</div><div class="ponto"></div><p>Nasce a ACM SIGCHI</p></div>
+    <div class="marco"><div class="ano">1994</div><div class="ponto"></div><p>10 heurísticas de Nielsen</p></div>
+    <div class="marco"><div class="ano">2025</div><div class="ponto"></div><p>NBR 17225: acessibilidade web no Brasil</p></div>
   </div>
+  <p class="citacao">Fontes: Sutherland (2003); DARPA; SIGCHI; Nielsen (1994); Ceweb.br (2025).</p>
 </section>
 
-<!-- 12 -->
-<section class="slide">
-  <p class="etiqueta q">Parte 2 · Demonstração</p>
-  <div class="cols" style="grid-template-columns: 1.1fr 1fr; align-items:center">
+<!-- 5 Qualidade definição -->
+<section class="slide qual">
+  <p class="etiqueta">1 · Qualidade de Software</p>
+  <h2>Qualidade não é só seguir a especificação</h2>
+  <p class="sub" style="margin-bottom:18px">A ISO/IEC 25010:2023 mede o produto por 9 características:</p>
+  <div class="grade">
+    <span>Adequação funcional</span><span>Eficiência de desempenho</span><span>Compatibilidade</span>
+    <span class="forte">Capacidade de interação</span><span>Confiabilidade</span><span>Segurança da informação</span>
+    <span>Manutenibilidade</span><span>Flexibilidade</span><span>Segurança (safety)</span>
+  </div>
+  <p style="margin-top:26px">Em 2023, <b class="az">"usabilidade" virou "capacidade de interação"</b>. A norma de qualidade passou a incluir IHC.</p>
+  <p class="citacao">Fontes: ISO/IEC 25010:2023; Mendonça (2026), Aula 7.</p>
+</section>
+
+<!-- 6 Qualidade história -->
+<section class="slide qual">
+  <p class="etiqueta">1 · Qualidade de Software</p>
+  <h2>Da fábrica para o software</h2>
+  <div class="linha">
+    <div class="marco"><div class="ano">1979</div><div class="ponto"></div><p>Crosby: qualidade é cumprir os requisitos</p></div>
+    <div class="marco"><div class="ano">1991</div><div class="ponto"></div><p>ISO/IEC 9126, primeira norma de qualidade de software</p></div>
+    <div class="marco"><div class="ano">2002</div><div class="ponto"></div><p>Fundação do ISTQB (testes)</p></div>
+    <div class="marco"><div class="ano">2003</div><div class="ponto"></div><p>MPS.BR, modelo brasileiro</p></div>
+    <div class="marco"><div class="ano">2023</div><div class="ponto"></div><p>Nova ISO 25010, CMMI 3.0 e norma para IA</p></div>
+  </div>
+  <p class="citacao">Fontes: Mendonça (2026); ISO/IEC 9126; ISTQB; Softex (2007); ISO/IEC (2023).</p>
+</section>
+
+<!-- 7 Normas -->
+<section class="slide ambos">
+  <p class="etiqueta">1 · Normas</p>
+  <h2>As normas que usamos como referência</h2>
+  <div class="dois">
     <div>
-      <h2>A versão 1 parece pronta</h2>
-      <ul>
-        <li>Com o mouse, a reserva funciona.</li>
-        <li>Pelo teclado, o foco nunca chega ao botão <b>Reservar</b>.</li>
-        <li>O "botão" é uma <code>div</code> com cara de botão.</li>
+      <p style="font-weight:700;color:var(--azul)">IHC</p>
+      <ul class="curta">
+        <li>ISO 9241-11 e 9241-210<small>usabilidade e design centrado no ser humano</small></li>
+        <li>WCAG 2.2 e ABNT NBR 17225<small>acessibilidade na web</small></li>
+        <li>Lei 13.146/2015, art. 63<small>site acessível é obrigatório no Brasil</small></li>
       </ul>
-      <pre><span class="c">// versão 1</span>
-<span class="r">&lt;div onClick={confirmar}&gt;Reservar&lt;/div&gt;</span>
-<span class="c">// versão 2</span>
-<span class="v">&lt;button type="submit"&gt;Reservar&lt;/button&gt;</span></pre>
     </div>
-    <img class="shot" src="img/v1-crop.png" alt="Tela da versão 1 do sistema de reservas" style="width:100%">
+    <div>
+      <p style="font-weight:700;color:var(--coral)">Qualidade</p>
+      <ul class="curta">
+        <li>ISO/IEC 25010<small>qualidade do produto</small></li>
+        <li>ISO 9001, CMMI e MPS.BR<small>qualidade do processo</small></li>
+        <li>ISO/IEC/IEEE 29119<small>teste de software</small></li>
+      </ul>
+    </div>
   </div>
 </section>
 
-<!-- 13 -->
-<section class="slide">
-  <p class="etiqueta q">Parte 2 · Resultado medido</p>
-  <h2>As duas versões, os mesmos instrumentos</h2>
-  <table>
-    <tr><th>Instrumento</th><th>Versão 1</th><th>Versão 2</th></tr>
-    <tr><td>Nota de acessibilidade (Lighthouse)</td><td>78/100</td><td class="sim">100/100</td></tr>
-    <tr><td>Violações (axe-core)</td><td>3 regras, 8 elementos</td><td class="sim">0</td></tr>
-    <tr><td>Reserva só com teclado</td><td class="nao">impossível (22 paradas)</td><td class="sim">concluída (6 paradas)</td></tr>
-    <tr><td>Testes automatizados</td><td>—</td><td class="sim">19 passando</td></tr>
-  </table>
-  <p class="peq sub" style="margin-top:20px">Medido com <code>npm run auditoria</code> e <code>npm test</code> na versão de produção.</p>
+<!-- 8 limite das ferramentas -->
+<section class="slide ambos">
+  <p class="etiqueta">1 · Ferramentas</p>
+  <h2>As ferramentas automáticas não encontram tudo</h2>
+  <div class="dois" style="margin-top:10px">
+    <div>
+      <div class="num az">57%</div>
+      <p>dos problemas de acessibilidade foram encontrados pela automação. O resto precisou de uma pessoa.</p>
+      <p class="fonte-dado">Deque, 2021: mais de 13 mil páginas</p>
+    </div>
+    <div>
+      <div class="num co">94,8%</div>
+      <p>das páginas iniciais mais acessadas da web têm falhas que já são detectáveis automaticamente.</p>
+      <p class="fonte-dado">WebAIM Million, 2025</p>
+    </div>
+  </div>
 </section>
 
-<!-- 14 -->
-<section class="slide">
-  <p class="etiqueta g">Parte 2 · O encontro dos dois temas</p>
-  <h2>O pior defeito não foi detectado por nenhuma ferramenta</h2>
-  <p>A regra exige que <b>botões</b> tenham nome acessível. Na versão 1 não há botão, há uma <code>div</code>, e <code>div</code> não precisa receber foco.</p>
-  <p>Para o axe-core e o Lighthouse, a página está limpa. <span class="alerta">O silêncio da ferramenta foi lido como aprovação.</span></p>
-  <p>Só a execução da tarefa completa, uma medida de <b>eficácia</b> (IHC), encontrou a barreira.</p>
-  <p class="tese" style="margin-top:20px;font-size:30px">A cobertura de uma ferramenta é definida pelas perguntas que ela faz.</p>
+<!-- 9 mercado -->
+<section class="slide ambos">
+  <p class="etiqueta">1 · Mercado de trabalho</p>
+  <h2>Profissões e certificações</h2>
+  <div class="dois">
+    <div class="caixa az">
+      <h3>IHC</h3>
+      <p style="color:var(--tinta)">Designer de UX/UI · pesquisador de UX · UX writer · especialista em acessibilidade</p>
+      <p style="margin-top:16px">Certificações: CPUX-F · NN/g UX · CPACC e WAS</p>
+    </div>
+    <div class="caixa co">
+      <h3>Qualidade</h3>
+      <p style="color:var(--tinta)">Analista de testes/QA · engenheiro de automação de testes · engenheiro de qualidade</p>
+      <p style="margin-top:16px">Certificações: CTFL (ISTQB) · CSQE · empresas: ISO 9001, CMMI, MPS.BR</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:26px;font-size:23px">Nenhuma é obrigatória por lei. Em nov/2026 o ISTQB lançou certificações de usabilidade e acessibilidade.</p>
 </section>
 
-<!-- 15 -->
-<section class="slide">
-  <p class="etiqueta q">Parte 2 · Manutenção</p>
-  <h2>O defeito que nem é de interface</h2>
-  <p>Com uma reserva das 08:00 às 10:00 na tela, a versão 1:</p>
-  <ul>
-    <li>mostra <b>10:00</b> como indisponível no contador;</li>
-    <li>e <b>aceita</b> a reserva às 10:00 no envio.</li>
+<!-- 10 IA -->
+<section class="slide ambos">
+  <p class="etiqueta">1 · Inteligência Artificial</p>
+  <h2>Com IA, produzir ficou mais rápido. Medir ficou mais importante.</h2>
+  <div class="tres" style="margin-top:6px">
+    <div><div class="num az" style="font-size:80px">84%</div><p style="font-size:23px">dos devs usam ou vão usar IA. Só 33% confiam no resultado.</p><p class="fonte-dado">Stack Overflow, 2025</p></div>
+    <div><div class="num co" style="font-size:80px">−7,2%</div><p style="font-size:23px">de estabilidade nas entregas com mais uso de IA</p><p class="fonte-dado">DORA / Google, 2024</p></div>
+    <div><div class="num co" style="font-size:80px">2×</div><p style="font-size:23px">de código reescrito em menos de 2 semanas (projeção para 2024)</p><p class="fonte-dado">GitClear, 2024</p></div>
+  </div>
+</section>
+
+<!-- 11 pergunta -->
+<section class="slide ambos">
+  <p class="etiqueta">2 · O código</p>
+  <div class="meio">
+    <p class="tese">Um sistema pode passar nas ferramentas de qualidade e ainda assim ser impossível de usar?</p>
+    <p class="sub" style="margin-top:30px">Para responder, fizemos um sistema de reserva de laboratórios do DCC.</p>
+  </div>
+</section>
+
+<!-- 12 duas versões -->
+<section class="slide ambos">
+  <p class="etiqueta">2 · O código</p>
+  <h2>O mesmo sistema, feito duas vezes</h2>
+  <div class="dois">
+    <div class="caixa co"><h3>Versão 1</h3><p style="color:var(--tinta)">Defeitos colocados de propósito:</p><ul class="curta" style="margin-top:8px">
+      <li>"botão" que não é botão</li><li>campos sem rótulo</li><li>mesma regra copiada 3 vezes</li></ul></div>
+    <div class="caixa vd"><h3>Versão 2</h3><p style="color:var(--tinta)">Mesma função, refatorada:</p><ul class="curta" style="margin-top:8px">
+      <li>botão de verdade</li><li>campos com rótulo</li><li>regra em um lugar só, com testes</li></ul></div>
+  </div>
+  <p class="citacao">github.com/Rafaelrr5/reserva-labs-dcc</p>
+</section>
+
+<!-- 13 telas -->
+<section class="slide ihc">
+  <p class="etiqueta">2 · Demonstração</p>
+  <h2>Na tela, as duas parecem iguais</h2>
+  <div class="telas">
+    <div class="tela"><div class="moldura"><img src="img/v1-fim.png" alt="Formulário da versão 1"></div>
+      <p><b class="co">Versão 1:</b> o Tab nunca chega no botão</p></div>
+    <div class="tela"><div class="moldura"><img src="img/v2-fim.png" alt="Formulário da versão 2 com o botão em foco"></div>
+      <p><b style="color:var(--verde)">Versão 2:</b> o Tab chega no botão (contorno laranja)</p></div>
+  </div>
+</section>
+
+<!-- 14 código -->
+<section class="slide ihc">
+  <p class="etiqueta">2 · Demonstração</p>
+  <h2>A diferença está em uma linha</h2>
+  <pre><span class="c">// versão 1: parece botão, mas o teclado não alcança</span>
+<span class="r">&lt;div onClick={confirmar}&gt;Reservar&lt;/div&gt;</span>
+
+<span class="c">// versão 2: botão de verdade</span>
+<span class="v">&lt;button type="submit"&gt;Reservar&lt;/button&gt;</span></pre>
+  <p style="margin-top:28px">Com o mouse, as duas funcionam. Quem usa só o teclado <b class="co">não consegue reservar</b> na versão 1.</p>
+</section>
+
+<!-- 15 resultados -->
+<section class="slide ambos">
+  <p class="etiqueta">2 · Resultado medido</p>
+  <h2>Medimos as duas versões do mesmo jeito</h2>
+  <div class="placar">
+    <div class="cab">Medida</div><div class="cab">Versão 1</div><div class="cab">Versão 2</div>
+    <div>Nota de acessibilidade (Lighthouse)</div><div class="ruim">78 / 100</div><div class="bom">100 / 100</div>
+    <div>Elementos com problema (axe-core)</div><div class="ruim">8</div><div class="bom">0</div>
+    <div>Reservar só com o teclado</div><div class="ruim">impossível</div><div class="bom">conseguiu</div>
+    <div>Testes automatizados</div><div class="ruim">nenhum</div><div class="bom">19 passando</div>
+  </div>
+</section>
+
+<!-- 16 achado -->
+<section class="slide ambos">
+  <p class="etiqueta">2 · O encontro dos dois temas</p>
+  <h2>Nenhuma ferramenta achou o pior defeito</h2>
+  <div class="check">
+    <div class="caixa"><div class="icone ok">✓</div><h3>axe-core</h3><p>não acusou nada no "botão"</p></div>
+    <div class="caixa"><div class="icone ok">✓</div><h3>Lighthouse</h3><p>não acusou nada no "botão"</p></div>
+    <div class="caixa co"><div class="icone x">✗</div><h3>Fazer a reserva pelo teclado</h3><p>impossível</p></div>
+  </div>
+  <p style="margin-top:30px">A regra procura <b>botões</b> sem nome. Ali não existe botão, então não há o que acusar. Só testar a <b class="az">tarefa</b> (IHC) achou o problema.</p>
+</section>
+
+<!-- 17 manutenção -->
+<section class="slide qual">
+  <p class="etiqueta">2 · Manutenção</p>
+  <h2>Outro defeito: a tela se contradiz</h2>
+  <div class="agenda">
+    <div class="bloco" style="left:0;width:40%">reserva existente 08:00–10:00</div>
+    <div class="marca10" style="left:40%"></div>
+    <span class="hora" style="left:0%;transform:none">08:00</span><span class="hora" style="left:40%">10:00</span><span class="hora" style="left:80%">12:00</span>
+  </div>
+  <div class="dois" style="gap:30px">
+    <div class="caixa co"><h3>O aviso diz</h3><p>"10:00 está indisponível"</p></div>
+    <div class="caixa co"><h3>O botão faz</h3><p>aceita a reserva às 10:00</p></div>
+  </div>
+  <p style="margin-top:24px">Causa: a mesma regra estava copiada em 3 lugares, e uma cópia ficou diferente.</p>
+</section>
+
+<!-- 18 conclusão -->
+<section class="slide ambos">
+  <p class="etiqueta">3 · Conclusão</p>
+  <h2>O que aprendemos</h2>
+  <ul class="curta">
+    <li>Nota 100 não garante que a pessoa consegue usar<small>passar nas regras (Qualidade) e conseguir fazer a tarefa (IHC) são perguntas diferentes</small></li>
+    <li>Código copiado vira contradição<small>a correção certa foi deixar a regra em um lugar só</small></li>
+    <li>Com IA produzindo mais rápido, medir importa mais<small>com normas, testes e pessoas reais</small></li>
   </ul>
-  <pre><span class="c">// a mesma regra copiada em 3 lugares; a terceira diverge</span>
-ini &lt;  rFim &amp;&amp; rIni &lt;  fim    <span class="c">// cópias 1 e 2</span>
-<span class="r">ini &lt;= rFim &amp;&amp; rIni &lt;= fim</span>    <span class="c">// cópia 3</span></pre>
-  <p class="peq">Nenhuma auditoria de interface vê isso. Só um teste que conhece a regra, possível porque a versão 2 isolou a regra em um único módulo.<br><b>Trocar <code>&lt;=</code> por <code>&lt;</code> corrige o sintoma; a causa é existirem três cópias.</b></p>
+  <p class="sub" style="margin-top:22px;font-size:20px">Limites: defeitos colocados de propósito e sem testes com usuários reais. O método vale; os números são destas duas versões.</p>
 </section>
 
-<!-- 16 -->
+<!-- 19 referências -->
 <section class="slide">
-  <p class="etiqueta g">Parte 3 · Conclusão</p>
-  <h2>O que os dois temas dizem juntos</h2>
-  <ol style="padding-left:1.2em">
-    <li><b>Conformidade e eficácia são perguntas diferentes.</b> Nota 100 não diz que a pessoa consegue usar.</li>
-    <li><b>Duplicação é o defeito, não o operador errado.</b> Código copiado, inclusive por IA, vira inconsistência.</li>
-    <li><b>Quanto mais se automatiza a produção, mais importa saber medir</b>, com normas, testes e pessoas reais.</li>
-  </ol>
-  <p class="peq sub" style="margin-top:22px">Limites: dois casos, defeitos plantados de propósito, sem teste com usuários reais. Os números valem para estas duas versões; o método se generaliza.</p>
+  <p class="etiqueta">Referências principais</p>
+  <div class="dois" style="gap:50px">
+    <ul class="curta">
+      <li style="font-size:20px;padding:7px 0">ISO 9241-11:2018 · ISO 9241-210:2019</li>
+      <li style="font-size:20px;padding:7px 0">ISO/IEC 25010:2023 · ISO/IEC 25059:2023</li>
+      <li style="font-size:20px;padding:7px 0">W3C. WCAG 2.2, 2023 · ABNT NBR 17225:2025</li>
+      <li style="font-size:20px;padding:7px 0">Brasil. Lei 13.146/2015</li>
+      <li style="font-size:20px;padding:7px 0">Nielsen, 1994 · Norman, 2006</li>
+      <li style="font-size:20px;padding:7px 0">Barbosa; Silva, 2010</li>
+      <li style="font-size:20px;padding:7px 0">Mendonça. Notas de aula DCC061, 2026</li>
+    </ul>
+    <ul class="curta">
+      <li style="font-size:20px;padding:7px 0">Deque, 2021 · WebAIM Million, 2025</li>
+      <li style="font-size:20px;padding:7px 0">ISTQB, 2023 e 2026 · UXQB · IAAP · ASQ</li>
+      <li style="font-size:20px;padding:7px 0">DORA / Google, 2024</li>
+      <li style="font-size:20px;padding:7px 0">GitClear, 2024</li>
+      <li style="font-size:20px;padding:7px 0">Stack Overflow Developer Survey, 2025</li>
+      <li style="font-size:20px;padding:7px 0">Nielsen Norman Group, 2024</li>
+      <li style="font-size:20px;padding:7px 0">Softex. MPS.BR, 2007</li>
+    </ul>
+  </div>
+  <p class="sub" style="margin-top:14px;font-size:19px">Lista completa, com links, no documento-texto.</p>
 </section>
 
-<!-- 17 -->
-<section class="slide">
-  <p class="etiqueta g">Referências principais</p>
-  <ul class="peq" style="columns:2;column-gap:46px">
-    <li>ISO 9241-11:2018 e ISO 9241-210:2019</li>
-    <li>ISO/IEC 25010:2023 e ISO/IEC 25059:2023</li>
-    <li>W3C. WCAG 2.2, 2023</li>
-    <li>ABNT NBR 17225:2025 · Lei 13.146/2015</li>
-    <li>Nielsen, J. 10 usability heuristics, 1994</li>
-    <li>Norman, D. O design do dia a dia, 2006</li>
-    <li>Barbosa; Silva. Interação humano-computador, 2010</li>
-    <li>Mendonça, F. M. Notas de aula DCC061, 2026</li>
-    <li>Deque, 2021 · WebAIM Million, 2025</li>
-    <li>ISTQB, 2023 e 2026 · UXQB · IAAP · ASQ</li>
-    <li>DORA / Google, 2024 · GitClear, 2024</li>
-    <li>Stack Overflow Developer Survey, 2025</li>
-    <li>Nielsen Norman Group. Synthetic users, 2024</li>
-    <li>Softex. MPS.BR, 2007</li>
-  </ul>
-  <p class="mini" style="margin-top:16px">Lista completa, com links, no documento-texto entregue no Classroom.</p>
-</section>
-
-<!-- 18 -->
-<section class="slide">
-  <h1>Obrigado!</h1>
-  <p class="sub">Perguntas?</p>
-  <p class="peq" style="margin-top:30px">Código e documentação: <b>github.com/Rafaelrr5/reserva-labs-dcc</b></p>
-  <p class="peq sub">Gabriella Margarida Ribeiro Soares · Rafael Rocha Ribeiro</p>
+<!-- 20 fim -->
+<section class="slide ambos">
+  <div class="meio">
+    <h1>Obrigado!</h1>
+    <p class="sub">Perguntas?</p>
+    <p style="margin-top:36px;font-size:24px">Código: <b>github.com/Rafaelrr5/reserva-labs-dcc</b></p>
+  </div>
 </section>
 
 </div></div>
-<div class="rodape" id="rodape"><span>IHC e Qualidade de Software · DCC061 · Grupo 5</span><span><span id="n">1</span> / <span id="total"></span></span></div>
 
 <script>
   const slides = [...document.querySelectorAll('.slide')];
   const escala = document.getElementById('escala');
   let i = 0;
-  document.getElementById('total').textContent = slides.length;
-  // rodapé dentro de cada slide (aparece também no PDF)
   slides.forEach((s, k) => {
     if (k === 0) return;
     const r = document.createElement('div'); r.className = 'rodape';
     r.innerHTML = `<span>IHC e Qualidade de Software · DCC061 · Grupo 5</span><span>${k + 1} / ${slides.length}</span>`;
     s.appendChild(r);
   });
-  document.getElementById('rodape').remove();
-  function ajustar() {
-    const f = Math.min(innerWidth / 1280, innerHeight / 720);
-    escala.style.transform = `scale(${f})`;
-  }
-  function mostrar(novo) {
-    i = Math.max(0, Math.min(slides.length - 1, novo));
-    slides.forEach((s, k) => s.classList.toggle('ativo', k === i));
-  }
+  function ajustar() { escala.style.transform = `scale(${Math.min(innerWidth / 1280, innerHeight / 720)})`; }
+  function mostrar(n) { i = Math.max(0, Math.min(slides.length - 1, n)); slides.forEach((s, k) => s.classList.toggle('ativo', k === i)); }
   addEventListener('resize', ajustar); ajustar();
   document.addEventListener('keydown', (e) => {
     if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); mostrar(i + 1); }
