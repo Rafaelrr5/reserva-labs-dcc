@@ -2,8 +2,13 @@
 
 **Temas: Interação Homem-Computador e Qualidade de Software.**
 
-Alvo: 18 minutos, dentro dos 15–20 exigidos. Os tempos são de ensaio,
-não de improviso.
+Alvo: 19 minutos, dentro dos 15–20 exigidos. Os tempos são de ensaio,
+não de improviso. Se o ensaio passar de 20, encurte a Parte 1 (slides 6 e 8
+podem ser lidos em 20 segundos cada).
+
+Slides: `apresentacao/slides.html` (18 telas; PDF para o Classroom em
+`apresentacao/slides.pdf`). O enunciado pede uma parte sobre o documento-texto
+e outra sobre o código: a Parte 1 cobre o documento, o restante cobre o código.
 
 O fio condutor: *a versão ruim não parece ruim, e as ferramentas que deveriam
 denunciá-la deixam passar justamente o pior defeito.*
@@ -23,13 +28,31 @@ Deixe `relatorios/auditoria.json` e uma captura da saída salvos. Se o navegador
 ou a máquina falharem na hora, você apresenta o relatório salvo em vez de
 cancelar a demonstração.
 
-Abra também `apresentacao/conceitos.html`, que cobre os blocos 1 e 2 abaixo.
+Abra também `apresentacao/slides.html` em tela cheia.
+
+## 0. Parte 1 — os temas do documento-texto — 5 min
+
+*Slides 1 a 9.* Uma pessoa apresenta; a outra prepara a demonstração.
+
+- **Slides 3 e 4 (IHC, 1,5 min):** definição pela ISO 9241-11 e linha do tempo.
+  Feche com a NBR 17225 (2025) e a Lei Brasileira de Inclusão: acessibilidade
+  deixou de ser opcional.
+- **Slides 5 e 6 (Qualidade, 1,5 min):** as 9 características da ISO/IEC
+  25010:2023. Aponte a troca de "usabilidade" por "capacidade de interação":
+  é a ponte entre os dois temas.
+- **Slide 7 (normas e ferramentas, 40 s):** termine nos 57% da Deque. Esse
+  número volta na demonstração.
+- **Slide 8 (mercado, 30 s):** profissões e certificações; nenhuma é exigida
+  por lei.
+- **Slide 9 (IA, 50 s):** três números e uma frase: a IA produz mais rápido,
+  medir ficou mais importante. O dado da GitClear (mais código copiado) prepara
+  o defeito de manutenção do slide 15.
 
 ---
 
-## 1. Problema e enquadramento — 1,5 min
+## 1. Problema e enquadramento — 1 min
 
-*Slides 1 a 3 de `apresentacao/conceitos.html`.*
+*Slide 10.*
 
 Reserva de laboratórios do DCC. Duas implementações da mesma funcionalidade:
 uma com dívida técnica, outra refatorada.
@@ -42,7 +65,9 @@ Enuncie a articulação entre os dois temas: os mesmos defeitos degradam a
 experiência de uso (IHC) e testam a capacidade dos instrumentos de detectá-los
 (Qualidade). Um tema fornece o problema, o outro fornece a régua.
 
-## 1b. Conceitos — 2,5 min
+## 1b. Conceitos — 1,5 min
+
+*Slide 11.*
 
 *Slides 4 a 11.* Affordance e significante, os dois golfos de Norman, a tarefa
 como unidade de medida, conformidade, níveis de verificação, falso negativo por
@@ -53,11 +78,13 @@ O objetivo aqui é só dar nome às coisas antes de mostrá-las.
 
 ## 2. A v1 funcionando — 1 min
 
+*Slide 12 mostra a tela e o código, caso a demonstração ao vivo falhe.*
+
 Abra `#/v1` e faça uma reserva com o mouse. Funciona. Parece pronta.
 
 Este é o ponto da apresentação inteira: **a versão ruim não parece ruim.**
 
-## 3. IHC — a tarefa que não se conclui — 4 min
+## 3. IHC — a tarefa que não se conclui — 3 min
 
 *Esta é a parte de Interação Homem-Computador.*
 
@@ -85,7 +112,9 @@ A pessoa aciona e não recebe resposta — golfo de avaliação aberto.
 
 Abra `#/v2` e repita a tarefa pelo teclado. Conclui.
 
-## 4. Qualidade — a auditoria ao vivo — 3,5 min
+## 4. Qualidade — a auditoria ao vivo — 3 min
+
+*Slide 13 tem a tabela, caso a auditoria não rode na máquina da sala.*
 
 *Esta é a parte de Qualidade de Software.*
 
@@ -111,7 +140,9 @@ diferentes.
 Encerre com a porta de qualidade: o script sai com erro se a v2 não superar a
 v1 nos três instrumentos. Mesma função de um portão de integração contínua.
 
-## 5. O encontro dos dois temas — 3 min
+## 5. O encontro dos dois temas — 2 min
+
+*Slide 14.*
 
 **O momento mais forte da apresentação.**
 
@@ -135,6 +166,8 @@ perguntas que ela faz.**
 
 ## 6. O defeito que nem é de interface — 1,5 min
 
+*Slide 15.*
+
 Com a reserva das 08:00 às 10:00 na tela, selecione 10:00 como início.
 
 - O contador diz que o horário está indisponível.
@@ -154,6 +187,8 @@ Frase que resume: *trocar `<=` por `<` corrige o sintoma; a causa é existirem
 três cópias.*
 
 ## 7. Fechamento — 1 min
+
+*Slides 16 a 18.*
 
 Três afirmações, sem exagerar o alcance:
 

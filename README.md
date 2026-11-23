@@ -49,6 +49,7 @@ Comece pela visão geral; os outros aprofundam cada frente.
 | Arquivo | Conteúdo |
 |---|---|
 | [`docs/visao-geral.md`](docs/visao-geral.md) | **Comece aqui.** O que cada parte faz e por que existe |
+| [`apresentacao/slides.html`](apresentacao/slides.html) | **Slides da apresentação** (18 telas): os dois temas e o código. PDF em [`apresentacao/slides.pdf`](apresentacao/slides.pdf) |
 | [`apresentacao/conceitos.html`](apresentacao/conceitos.html) | Slides de abertura: os conceitos, em 12 telas |
 | [`docs/ihc.md`](docs/ihc.md) | Interação: tarefa, affordance, rótulo, retorno, consistência |
 | [`docs/qualidade.md`](docs/qualidade.md) | Instrumentos: o que cada um mede, por que discordam, onde falham |
